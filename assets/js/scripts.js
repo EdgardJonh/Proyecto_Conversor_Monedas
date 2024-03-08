@@ -6,7 +6,7 @@ const obtenerInformacion = async () => {
     const monedaCLP = document.querySelector("#monedaCLP");
     let elSelect = document.querySelector("#elSelect");
     let url = elSelect.value;
-    console.log(url);
+    // console.log(url);
     const res = await fetch(`https://mindicador.cl/api/${url}`);
     const data = await res.json();
     //Variables para el grafico
@@ -16,15 +16,15 @@ const obtenerInformacion = async () => {
     let fecha = series.map((seriess) => {
       return new Date(seriess.fecha).toLocaleDateString("en-GB");
     });
-    console.log(series);
-    console.log(fecha);
+    // console.log(series);
+    // console.log(fecha);
 
     const x = fecha.reverse();
 
     //uso la variable series que eh elegido un rango  con splice para iterarlo con map
     let valores = series.map((item) => item.valor);
     const y = valores.reverse();
-    console.log(y);
+    // console.log(y);
 
     //una vez seleccionadas el rango de las X y Y usamos char.js para mostrarlo en el grafico
 
@@ -33,14 +33,15 @@ const obtenerInformacion = async () => {
     let eldato = data.serie[0];
     let moneda = eldato["valor"];
 
-    console.log(moneda);
+    // console.log(moneda);
     let CLP = Number(monedaCLP.value);
     if (CLP === 0) {
       alert("Ingresa una cantidad");
     } else {
       let resultadoPesopordolar = CLP * 1;
-      resultado.innerHTML = `$${resultadoPesopordolar / moneda}`;
-      console.log(CLP);
+      let totalMonedas = resultadoPesopordolar / moneda
+      resultado.innerHTML = `$${parseFloat(totalMonedas.toFixed(2))}`;
+      // console.log(CLP);
     }
     lasXY(x, y);
   } catch (error) {
